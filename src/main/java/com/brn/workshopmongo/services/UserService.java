@@ -5,6 +5,7 @@ import com.brn.workshopmongo.dto.UserDTO;
 import com.brn.workshopmongo.repositorys.UserRepository;
 import com.brn.workshopmongo.services.exception.ObjectNofFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,5 +40,17 @@ public class UserService {
     public void delete(String id){
         findById(id); //aproveitando as validações do metodo find ja prontas para não reescreve codigo
         repo.deleteById(id);
+    }
+
+    public User update(User obj){
+        User newObj = findById(obj.getId());
+        updatedata(newObj, obj);
+        return repo.save(newObj);
+
+    }
+
+    private void updatedata(User newObj, User obj) {
+        newObj.setName(obj.getName());
+        newObj.setEmail(obj.getEmail());
     }
 }
