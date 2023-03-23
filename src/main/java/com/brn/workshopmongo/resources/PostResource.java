@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/posts")
-public class PortResource {
+public class PostResource {
 
     @Autowired
     private PostService service;
@@ -22,10 +22,17 @@ public class PortResource {
         return ResponseEntity.ok().body(obj); //o ok retorna o codigo 200
     }
 
-    @GetMapping(value = "/titlesearch")
+    @GetMapping(value = "/titlesearch")           //@RequestParam aponta o ? da url indicando campos de pesquisa, neste caso text
     public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text){
         text = URL.decodeParam(text); //removendo a decodificação %20 recebido
-        List<Post> list = service.findByTititle(text);
+        List<Post> list = service.findByTitle(text);
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping(value = "/title-search")
+    public ResponseEntity<List<Post>> searchTitle(@RequestParam(value = "text", defaultValue = "") String text){
+        text = URL.decodeParam(text);
+        List<Post> list = service.searchTitle(text);
         return ResponseEntity.ok().body(list);
     }
 }
