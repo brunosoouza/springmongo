@@ -1,5 +1,5 @@
 
-# <Workshop> Spring Boot 3 com MongoDB
+# Workshop Spring Boot 3 com MongoDB
 
 Tecnologias utilizadas
 
